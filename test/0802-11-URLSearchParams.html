@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form onsubmit="ajaxSend(); return false">
+        <input type="number" name="a" placeholder="a"> +
+        <input type="number" name="b" placeholder="b">
+        <button>=</button>
+        <span id="result"></span>
+
+    </form>
+
+    <br>
+    <script>
+        const qstr = "name=Spring&age=24";
+
+        const sp = new URLSearchParams(qstr);
+
+        sp.set('gender', 'male');
+        for (let [k, v] of sp) {
+            console.log(k, v);
+        }
+
+
+        console.log(sp.toString())
+    </script>
+</body>
+
+</html>

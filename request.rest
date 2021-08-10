@@ -1,0 +1,5 @@
+GET https://localhost/mfee19-php/test/0802-08-query-string.php?a=5&b=10
+
+
+
+###  分隔
