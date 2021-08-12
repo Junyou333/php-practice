@@ -1,6 +1,11 @@
 <?php
 include __DIR__ . '/partials/init.php';
 $title = '登入';
+
+if (isset($_SESSION['user'])) {
+    header('Location: index_.php');
+    exit;
+}
 ?>
 <?php include __DIR__ . '/partials/html-head.php'; ?>
 <?php include __DIR__ . '/partials/navbar.php'; ?>
