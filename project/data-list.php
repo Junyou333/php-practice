@@ -15,6 +15,17 @@ $totalRows = $pdo->query("SELECT count(1) FROM address_book")->fetch(PDO::FETCH_
 //總共有幾頁，才能生出分頁按鈕
 $totalPages = ceil($totalRows / $perPage); //正數無條件進位
 
+//page在安全範圍內
+if ($page < 1) {
+    header('Location: ?page=1');
+    exit;
+}
+if ($page > $totalPages) {
+    header('Location: ?page=' . $totalPages);
+}
+
+
+
 $sql = sprintf(
     "SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s",
     ($page - 1) * $perPage,
@@ -34,14 +45,18 @@ $rows = $pdo->query($sql)->fetchAll();
     <div class="row">
         <div class="col">
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
-                    <?php for($i=1; $i<=$totalPages; $i++):  ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                <ul class="pagination d-flex justify-content-end">
+                    <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>">Previous</a>
                     </li>
-         <?php endfor; ?>
-                    <!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+                    <?php for ($i = 1; $i <= $totalPages; $i++) :  ?>
+                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
