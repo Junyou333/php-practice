@@ -10,7 +10,7 @@
         <a class="nav-link" href="data-list.php">資料列表</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="data-insert.php">新增</a>
       </li>
     </ul>
 
