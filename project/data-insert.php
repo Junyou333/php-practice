@@ -60,7 +60,8 @@ $title = '新增資料';
 </div>
 <?php include __DIR__ . '/partials/scripts.php'; ?>
 <script>
-    const email_re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // const email_re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
     const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
 
     const name = document.querySelector('#name');
@@ -80,11 +81,11 @@ $title = '新增資料';
             name.style.border = '1px red solid';
         }
 
-        if (!email_re.test(name.value)) {
-            isPass = false;
-            email.nextElementSibling.innerHTML = '請填寫正確Email格式';
-            email.style.border = '1px red solid';
-        }
+        // if (!email_re.test(name.value)) {
+        //     isPass = false;
+        //     email.nextElementSibling.innerHTML = '請填寫正確Email格式';
+        //     email.style.border = '1px red solid';
+        // }
         if (isPass) {
             const fd = new FormData(document.form1);
             fetch('data-insert-api.php', {

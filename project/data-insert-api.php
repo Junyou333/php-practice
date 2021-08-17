@@ -2,6 +2,8 @@
 include __DIR__ . '/partials/init.php';
 //echo json_encode($_POST);
 
+header('Content-Type: application/json');
+
 // print_r($_POST);
 
 $output = [
@@ -12,6 +14,20 @@ $output = [
     'postData' => $_POST,
 
 ];
+//資料格式檢查
+if (mb_strlen($_POST['name']) < 2) {
+    $output['error'] = '姓名長度太短';
+    $output['code'] = 410;
+    echo json_encode($output);
+    exit;
+}
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $output['error'] = 'email格式錯誤';
+    $output['code'] = 420;
+    echo json_encode($output);
+    exit;
+}
+
 //檢查email
 // var_dump(filter_var('bob@example.com', FILTER_VALIDATE_EMAIL));
 // var_dump(filter_var('http://example.com', FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));
@@ -36,4 +52,7 @@ $stmt->execute([
 ]);
 
 $output['rowCount'] = $stmt->rowCount(); //新增的筆數
+if ($stmt->rowCount() == 1) {
+    $output['success'] = true;
+}
 echo json_encode($output);

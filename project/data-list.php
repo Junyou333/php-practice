@@ -78,12 +78,16 @@ $rows = $pdo->query($sql)->fetchAll();
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <td><?= $r['sid'] ?></td>
-                            <td><?= $r['name'] ?></td>
-                            <td><?= $r['email'] ?></td>
-                            <td><?= $r['mobile'] ?></td>
-                            <td><?= $r['birthday'] ?></td>
-                            <td><?= $r['address'] ?></td>
+                            <td><?= htmlentities($r['sid']) ?></td>
+                            <td><?= htmlentities($r['name']) ?></td>
+                            <td><?= htmlentities($r['email']) ?></td>
+                            <td><?= htmlentities($r['mobile']) ?></td>
+                            <td><?= htmlentities($r['birthday']) ?></td>
+                            <td><?= htmlentities($r['address']) ?></td>
+                            <!-- strip_tags($r['address']) html所有標籤清掉 
+                            避免XSS攻擊
+                        htmlentities 跳脫一些> < 符號
+                        -->
                         </tr>
                     <?php endforeach; ?>
 
