@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/edd21fb7ea.js" crossorigin="anonymous"></script>
 <?php
 include __DIR__ . '/partials/init.php';
 $title = '資料列表';
@@ -41,6 +42,11 @@ $rows = $pdo->query($sql)->fetchAll();
 ?>
 <?php include __DIR__ . '/partials/html-head.php'; ?>
 <?php include __DIR__ . '/partials/navbar.php'; ?>
+<style>
+    table tbody i.fas.fa-trash-alt {
+        color: darkred;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -67,23 +73,38 @@ $rows = $pdo->query($sql)->fetchAll();
                 <thead>
                     <tr>
                         <!-- `sid`, `name`, `email`, `mobile`, `birthday`, `address`, `created_at` -->
+                        <th scope="col"><i class="fas fa-trash-alt"></i></th>
                         <th scope="col">sid</th>
                         <th scope="col">name</th>
                         <th scope="col">email</th>
                         <th scope="col">mobile</th>
                         <th scope="col">birthday</th>
                         <th scope="col">address</th>
+                        <th scope="col"><i class="fas fa-edit"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
+                            <td>
+                                <a href="data-delete.php?sid=<?= $r['sid'] ?>"
+                                onclick="return confirm('確定要刪除編號為 <?= $r['sid'] ?>的資料嗎?')"
+                                >
+
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
                             <td><?= htmlentities($r['sid']) ?></td>
                             <td><?= htmlentities($r['name']) ?></td>
                             <td><?= htmlentities($r['email']) ?></td>
                             <td><?= htmlentities($r['mobile']) ?></td>
                             <td><?= htmlentities($r['birthday']) ?></td>
                             <td><?= htmlentities($r['address']) ?></td>
+                            <td>
+                                <a href="data-edit.php?sid=<?= $r['sid'] ?>">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
                             <!-- strip_tags($r['address']) html所有標籤清掉 
                             避免XSS攻擊
                         htmlentities 跳脫一些> < 符號
